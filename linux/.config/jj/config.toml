@@ -1,0 +1,28 @@
+#:schema https://jj-vcs.github.io/jj/latest/config-schema.json
+
+[user]
+name = "Zach Yu"
+email = "zachyu@google.com"
+
+[ui]
+editor = ["code", "--wait"]
+merge-editor = "vscode"
+
+[fsmonitor]
+backend = "watchman"
+
+[aliases]
+repo = ["util", "exec", "--", "/google/src/head/depot/google3/experimental/users/zachyu/jjutils/jupo_dev.bash"]
+
+[template-aliases]
+prompt = '''
+separate(" ",
+  format_short_change_id_with_change_offset(self),
+  if(conflict, label("conflict", "(conf)"), ""),
+  if(empty, label("empty", "(empty)"), ""),
+  if(description == "", label("description placeholder", "(no desc)"), "")
+)
+'''
+
+[revset-aliases]
+'closest_bookmark(to)' = 'heads(::to & bookmarks())'
